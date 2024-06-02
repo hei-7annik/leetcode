@@ -6,8 +6,29 @@ struct Solution {
 }
 
 impl Solution {
-    pub fn count_triplets(array: &[u32]) -> u32 {
-        0
+    pub fn count_triplets_naive(array: &[u32]) -> u32 {
+        let mut tuples: Vec<(u32, u32, u32)> = Vec::new();
+
+        let length = array.len() - 1;
+
+        for start in 0..length {
+            let mut part1 = 0;
+
+            for mid in start..=length {
+                part1 ^= array[mid];
+                let mut part2 = part1;
+
+                for end in (mid + 1)..=length {
+                    part2 ^= array[end];
+
+                    if part2 == 0 {
+                        tuples.push((start as u32, mid as u32, end as u32));
+                        println!("({start}, {mid}, {end})");
+                    }
+                }
+            }
+        }
+        tuples.len() as u32
     }
 }
 
