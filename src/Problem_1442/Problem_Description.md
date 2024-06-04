@@ -26,7 +26,6 @@ Input: arr = [1,1,1,1,1]
 
 Output: 10
 
-
 ## Constraints:
 
     1 <= arr.length <= 300

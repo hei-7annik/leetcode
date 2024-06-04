@@ -15,23 +15,8 @@ mod count_triplets {
         vector
     }
 
-    mod with_optimized_solution {
-        use super::*;
+    // test that check each solution for compliance with i < j <= k?
 
-        #[test]
-        fn in_random_input() {
-            let vector: Vec<u32> = verify_input(Vec::from([2,3,1,6,7]));
-
-            assert_eq!(count_triplets_optimized(&vector), 4);
-        }
-
-        #[test]
-        fn in_same_number_input() {
-            let vector: Vec<u32> = verify_input(Vec::from([1,1,1,1,1]));
-
-            assert_eq!(count_triplets_optimized(&vector), 10);
-        }
-    }
     mod with_naive_solution {
         use super::*;
 
@@ -47,6 +32,24 @@ mod count_triplets {
             let vector: Vec<u32> = verify_input(Vec::from([1,1,1,1,1]));
 
             assert_eq!(count_triplets_naive(&vector), 10);
+        }
+    }
+
+    mod with_optimized_solution {
+        use super::*;
+
+        #[test]
+        fn in_random_input() {
+            let vector: Vec<u32> = verify_input(Vec::from([2,3,1,6,7]));
+
+            assert_eq!(count_triplets_optimized(&vector), 4);
+        }
+
+        #[test]
+        fn in_same_number_input() {
+            let vector: Vec<u32> = verify_input(Vec::from([1,1,1,1,1]));
+
+            assert_eq!(count_triplets_optimized(&vector), 10);
         }
     }
 }
