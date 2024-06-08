@@ -1,6 +1,6 @@
 use std::cell::{RefCell};
 use std::rc::Rc;
-use std::cmp::max;
+use std::cmp::{max};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct TreeNode {
@@ -20,41 +20,52 @@ impl TreeNode {
     }
 }
 
-fn depth(root: Option<Rc<RefCell<TreeNode>>>, tree_depth: i32) -> i32 {
-    if let Some(current) = root {
-        let node = current.borrow();
-
-        let mut depth_left_arm = 0;
-        if let left_child = node.left.to_owned() {
-            depth_left_arm = depth(left_child, tree_depth + 1);
-        }
-        let mut depth_right_arm = 0;
-        if let right_child = node.right.to_owned() {
-            depth_right_arm = depth(right_child, tree_depth + 1);
-        }
-
-        return max(depth_left_arm, depth_right_arm)
-    };
-    tree_depth - 1
-}
-
-fn depth_of(root: Option<Rc<RefCell<TreeNode>>>, target: i32) -> i32 {
-    let mut depth = 0;
-    if let Some(node) = root {
-        let mut current_node = node.borrow().clone();
-
-        while current_node.left != None || current_node.right != None {
-            match current_node.val {
-                n if target > n     => current_node = current_node.right.clone().unwrap().borrow().clone(),
-                n if target < n     => current_node = current_node.left.clone().unwrap().borrow().clone(),
-                _                        => break,
-            }
-            depth += 1;
-        }
-    }
-    depth
-}
+// Options
+// 1. The path from infected_node to furthest_leaf includes root
+// 2. The path root -> infected_node and root -> furthest_leaf is the same for the first n steps
+// 3. The path root -> infected_node is part of root -> furthest_leaf
 
 pub fn calculate_infection_time_naive(root: Option<Rc<RefCell<TreeNode>>>, start: i32) -> i32 {
-    depth(root.clone(), 0) + depth_of(root, start)
+    let depth_values = depth_mapping(root, start, 0);
+
+    // option 1 and 2
+    if let Some(depth_common_ancestor) = depth_values.common_ancestor {
+        return depth_values.infected.unwrap() - depth_common_ancestor + depth_values.depth
+    }
+    // option 3
+    else {
+        return depth_values.depth - depth_values.infected.unwrap()
+    }
+}
+
+#[derive(Debug)]
+pub struct Results {
+    depth: i32,
+    infected: Option<i32>,
+    common_ancestor: Option<i32>
+}
+
+
+
+pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: i32, depth: i32) -> Results {
+    let mut result = Results {depth: depth - 1, infected: None, common_ancestor: None};
+
+    // walk through
+    if let Some(node) = root {
+        let result_left = depth_mapping(node.borrow().left.clone(), target, depth + 1);
+        let result_right = depth_mapping(node.borrow().right.clone(), target, depth + 1);
+
+        //
+        result.infected = result_left.infected.or(result_right.infected);
+        result.depth = max(result_left.depth, result_right.depth);
+
+        if node.borrow().val == target {
+            result.infected = Some(depth);
+        }
+
+        if (result_left.infected.or(result_right.infected) != None) && (result_left.depth != result_right.depth) {
+            result.common_ancestor = Some(depth);
+        }
+    }
+    result
 }
