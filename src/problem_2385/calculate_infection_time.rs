@@ -36,8 +36,6 @@ pub fn calculate_infection_time_naive(root: Option<Rc<RefCell<TreeNode>>>, start
     else {
         return depth_values.depth - depth_values.infected.unwrap()
     }
-
-    return depth_values.infected.unwrap() - depth_values.common_ancestor.unwrap()
 }
 
 #[derive(Debug)]
