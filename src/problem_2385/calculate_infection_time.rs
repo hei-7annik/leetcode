@@ -26,45 +26,40 @@ impl TreeNode {
 // 3. The path root -> infected_node is part of root -> furthest_leaf
 
 pub fn calculate_infection_time_naive(root: Option<Rc<RefCell<TreeNode>>>, start: i32) -> i32 {
-    let depth_values = depth_mapping(root, start, 0);
-
-    // option 1 and 2
-    if let Some(depth_common_ancestor) = depth_values.common_ancestor {
-        return depth_values.infected.unwrap() - depth_common_ancestor + depth_values.depth
-    }
-    // option 3
-    else {
-        return depth_values.depth - depth_values.infected.unwrap()
-    }
+    depth_mapping(root, start, 0).longest_path
 }
 
 #[derive(Debug)]
 pub struct Results {
-    depth: i32,
+    longest_path: i32,
     infected: Option<i32>,
-    common_ancestor: Option<i32>
 }
 
-
-
-pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: i32, depth: i32) -> Results {
-    let mut result = Results {depth: depth - 1, infected: None, common_ancestor: None};
+pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: i32, current_depth: i32) -> Results {
+    let mut result = Results {longest_path: current_depth - 1, infected: None };
 
     // walk through
     if let Some(node) = root {
-        let result_left = depth_mapping(node.borrow().left.clone(), target, depth + 1);
-        let result_right = depth_mapping(node.borrow().right.clone(), target, depth + 1);
+        let result_left = depth_mapping(node.borrow().left.clone(), target, current_depth + 1);
+        let result_right = depth_mapping(node.borrow().right.clone(), target, current_depth + 1);
 
-        //
-        result.infected = result_left.infected.or(result_right.infected);
-        result.depth = max(result_left.depth, result_right.depth);
+        result.longest_path = max(result_left.longest_path, result_right.longest_path);
 
-        if node.borrow().val == target {
-            result.infected = Some(depth);
+        // Option 1 & 2
+        if let Some(infected) = result_left.infected {
+            let path_infected_to_right_leaf = result_left.infected.unwrap() - 2* current_depth + result_right.longest_path;
+            result.longest_path = max(path_infected_to_right_leaf, result_left.longest_path);
+            result.infected = Some(infected);
+        }
+        else if let Some(infected) = result_right.infected {
+            let path_infected_to_left_leaf = result_right.infected.unwrap() - 2* current_depth + result_left.longest_path;
+            result.longest_path = max(path_infected_to_left_leaf, result_right.longest_path);
+            result.infected = Some(infected);
         }
 
-        if (result_left.infected.or(result_right.infected) != None) && (result_left.depth != result_right.depth) {
-            result.common_ancestor = Some(depth);
+        // Option 3
+        if node.borrow().val == target {
+            result.infected = Some(current_depth);
         }
     }
     result
