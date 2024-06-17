@@ -43,6 +43,18 @@ mod test {
             let root = assemble_tree(&[1], 0);
             assert_eq!(calculate_infection_time_naive(root, 1), 0)
         }
+
+        #[test]
+        fn where_tree_is_a_linked_list() {
+            let root = assemble_tree(&[1,0,2,0,0,0,3,0,0,0,0,0,0,0,4], 0);
+            assert_eq!(calculate_infection_time_naive(root, 1), 3)
+        }
+
+        #[test]
+        fn where_tree_contains_only_copies_of_one_element() {
+            let root = assemble_tree(&[1,0,1,0,0,0,1,0,0,0,0,0,0,0,4], 0);
+            assert_eq!(calculate_infection_time_naive(root, 4), 3)
+        }
     }
     mod with_optimized_solution {
         use super::*;
