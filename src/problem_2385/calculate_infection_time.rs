@@ -49,9 +49,9 @@ pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: u32, current_d
         let right_subtree = depth_mapping(node.borrow().right.clone(), target, current_depth + 1);
 
         // Set baseline for Option 3
-        if node.borrow().val == target {
+        if node.borrow().val == target && left_subtree.infected.is_none() && right_subtree.infected.is_none() {
             let infected = Some(current_depth);
-            let longest_path = max(left_subtree.longest_path - current_depth, right_subtree.longest_path - current_depth);
+            let longest_path = max(left_subtree.longest_path, right_subtree.longest_path);
 
             return Results{longest_path, infected}
         }
@@ -61,14 +61,14 @@ pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: u32, current_d
             let longest_path = match infected {
                 // Option 1 & 2
                 Some(infected_node_depth) if left_subtree.infected.is_some() =>
-                    max(infected_node_depth - 2* current_depth + right_subtree.longest_path, left_subtree.longest_path),
+                    max(infected_node_depth - current_depth + right_subtree.longest_path, left_subtree.longest_path),
                 Some(infected_node_depth) if right_subtree.infected.is_some() =>
-                    max(infected_node_depth - 2* current_depth + left_subtree.longest_path, right_subtree.longest_path),
+                    max(infected_node_depth - current_depth + left_subtree.longest_path, right_subtree.longest_path),
                 // Option 3
-                _ => max(left_subtree.longest_path, right_subtree.longest_path)
+                _ => max(left_subtree.longest_path, right_subtree.longest_path) + 1
             };
             return Results{longest_path, infected}
         };
     }
-    Results {longest_path: current_depth - 1, infected: None }
+    Results {longest_path: 0, infected: None }
 }
