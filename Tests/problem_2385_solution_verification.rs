@@ -52,15 +52,8 @@ mod test {
 
         #[test]
         fn where_tree_contains_only_copies_of_one_element() {
-            let root = assemble_tree(&[1,0,1,0,0,0,1,0,0,0,0,0,0,0,4], 0);
+            let root = assemble_tree(&[1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4], 0);
             assert_eq!(calculate_infection_time_naive(root, 4), 3)
         }
-    }
-    mod with_optimized_solution {
-        use super::*;
-        /*#[test]
-        fn in_random_input() {
-            let root = assemble_tree(&[1,5,3,0,4,10,6,0,0,9,2], 0);
-        }*/
     }
 }
