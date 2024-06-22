@@ -23,13 +23,13 @@ impl TreeNode {
 
 
 pub fn calculate_infection_time_naive(root: Option<Rc<RefCell<TreeNode>>>, start: u32) -> u32 {
-    depth_mapping(root, start, 0).longest_path
+    depth_mapping(root, start).max_path_len
 }
 
 #[derive(Debug)]
 pub struct Results {
-    longest_path: u32,
-    infected: Option<u32>,
+    max_path_len: u32,
+    path_to_infected_len: Option<u32>,
 }
 
 /* Options
@@ -43,32 +43,34 @@ pub struct Results {
 3.  Infection takes longer travels to one of the subtrees of its node then through the rest of the tree
     longest path:   infected node -> child -> ... -> child
 */
-pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: u32, current_depth: u32) -> Results {
+pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: u32) -> Results {
+    let mut result = Results { max_path_len: 0, path_to_infected_len: None };
+
     if let Some(node) = root {
-        let left_subtree = depth_mapping(node.borrow().left.clone(), target, current_depth + 1);
-        let right_subtree = depth_mapping(node.borrow().right.clone(), target, current_depth + 1);
+        let left_subtree = depth_mapping(node.borrow().left.clone(), target);
+        let right_subtree = depth_mapping(node.borrow().right.clone(), target);
 
-        // Set baseline for Option 3
-        if node.borrow().val == target && left_subtree.infected.is_none() && right_subtree.infected.is_none() {
-            let infected = Some(current_depth);
-            let longest_path = max(left_subtree.longest_path, right_subtree.longest_path);
+        result.max_path_len = max(left_subtree.max_path_len, right_subtree.max_path_len);
 
-            return Results{longest_path, infected}
+        if node.borrow().val == target {
+            result.path_to_infected_len = Some(0);
         }
+        // Option 1 & 2
+        else if let Some(length) = left_subtree.path_to_infected_len {
+            result.path_to_infected_len = Some(length + 1);
+            result.max_path_len = max(result.path_to_infected_len.unwrap() + right_subtree.max_path_len,
+                                      result.max_path_len);
+        }
+        // Option 1 & 2
+        else if let Some(length) = right_subtree.path_to_infected_len {
+            result.path_to_infected_len = Some(length + 1);
+            result.max_path_len = max(result.path_to_infected_len.unwrap() + left_subtree.max_path_len,
+                                      result.max_path_len);
+        }
+        // Option 3
         else {
-            let infected = left_subtree.infected.or(right_subtree.infected);
-            // Determine which side of the tree is infected
-            let longest_path = match infected {
-                // Option 1 & 2
-                Some(infected_node_depth) if left_subtree.infected.is_some() =>
-                    max(infected_node_depth - current_depth + right_subtree.longest_path, left_subtree.longest_path),
-                Some(infected_node_depth) if right_subtree.infected.is_some() =>
-                    max(infected_node_depth - current_depth + left_subtree.longest_path, right_subtree.longest_path),
-                // Option 3
-                _ => max(left_subtree.longest_path, right_subtree.longest_path) + 1
-            };
-            return Results{longest_path, infected}
-        };
+            result.max_path_len += 1
+        }
     }
-    Results {longest_path: 0, infected: None }
+    result
 }
