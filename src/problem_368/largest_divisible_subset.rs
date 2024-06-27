@@ -1,18 +1,18 @@
 // multiply all numbers in the solution + 1 additional a factor
 
 pub fn largest_divisible_subset(numbers: &[u32]) -> Vec<u32> {
-    let mut subset = Vec::new();
+    let mut current_subset = Vec::new();
+    let current_factor = numbers[0];
 
-    for index in 1..numbers.len() {
-        let num = numbers[index];
-        if num % numbers[0] == 0 {
+    for i in 1..numbers.len() {
 
-            let addition_factors = largest_divisible_subset(&numbers[index..]);
-            if addition_factors.len() > subset.len() {
-                subset = addition_factors;
+        if numbers[i] % current_factor == 0 {
+            let alternative = largest_divisible_subset(&numbers[i..]);
+            if alternative.len() > current_subset.len() {
+                current_subset = alternative;
             }
         }
     }
-    subset.insert(0, numbers[0]);
-    return subset
+    current_subset.insert(0, current_factor);
+    return current_subset
 }
