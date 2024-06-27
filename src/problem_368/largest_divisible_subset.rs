@@ -1,4 +1,9 @@
-// multiply all numbers in the solution + 1 additional a factor
+// each factor f starts a subset S:
+// each number N divisible by f_i creates a variant of that subset
+// containing N as factor f_(i+1) where both subsets are equal for
+// the first i elements
+//
+// the largest subset is obtained by BRANCHING for each N
 
 pub fn largest_divisible_subset(numbers: &[u32]) -> Vec<u32> {
     let mut current_subset = Vec::new();
@@ -7,6 +12,7 @@ pub fn largest_divisible_subset(numbers: &[u32]) -> Vec<u32> {
     for i in 1..numbers.len() {
 
         if numbers[i] % current_factor == 0 {
+            // BRANCHING
             let alternative = largest_divisible_subset(&numbers[i..]);
             if alternative.len() > current_subset.len() {
                 current_subset = alternative;
