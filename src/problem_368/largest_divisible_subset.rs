@@ -4,15 +4,20 @@
 // the first i elements
 //
 // the largest subset is obtained by BRANCHING for each N
-pub fn largest_divisible_subset(numbers: &[u32]) -> Vec<u32> {
+pub fn largest_divisible_subset(mut numbers: Vec<u32>) -> Vec<u32> {
+    numbers.sort();
+
+    let result = divisible_subset(&numbers[..], 1);
+    return result[1..].to_vec()
+}
+
+pub fn divisible_subset(numbers: &[u32], current_factor: u32) -> Vec<u32> {
     let mut current_subset = Vec::new();
-    let current_factor = numbers[0];
 
-    for i in 1..numbers.len() {
-
+    for i in 0..numbers.len() {
         if numbers[i] % current_factor == 0 {
             // BRANCHING
-            let alternative = largest_divisible_subset(&numbers[i..]);
+            let alternative= divisible_subset(&numbers[i+1..], numbers[i]);
             if alternative.len() > current_subset.len() {
                 current_subset = alternative;
             }
@@ -22,23 +27,27 @@ pub fn largest_divisible_subset(numbers: &[u32]) -> Vec<u32> {
     return current_subset
 }
 
-pub fn largest_divisible_subset_optimized(numbers: &[u32]) -> Vec<u32> {
+pub fn largest_divisible_subset_optimized(mut numbers: Vec<u32>) -> Vec<u32> {
+    numbers.sort();
+
+    let result = divisible_subset_optimized(&numbers[..], 1);
+    return result[1..].to_vec()
+}
+
+fn divisible_subset_optimized(numbers: &[u32], current_factor: u32) -> Vec<u32> {
     let mut current_subset = Vec::new();
-    let current_factor = numbers[0];
-
-    for i in 1..numbers.len() {
-
+    for i in 0..numbers.len() {
         let alternative;
 
-        let num = numbers[i];
-        if num % current_factor == 0 {
+        if numbers[i] % current_factor == 0 {
             // BRANCH MITIGATION
-            if let Some(index) = current_subset.iter().position(|&n| n == num) {
+            if let Some(index) = current_subset.iter().position(|&n| n == numbers[i]) {
                 alternative = Vec::from(&current_subset[index..])
             }
             // BRANCHING
             else {
-                alternative = largest_divisible_subset(&numbers[i..]);
+
+                alternative = divisible_subset_optimized(&numbers[i+1..], numbers[i]);
             }
             if alternative.len() > current_subset.len() {
                 current_subset = alternative;
