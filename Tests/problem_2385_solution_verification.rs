@@ -18,7 +18,7 @@ mod test {
         None
     }
 
-    mod with_naive_solution {
+    mod naive_solution {
         use super::*;
         #[test]
         fn where_longest_path_includes_root() {

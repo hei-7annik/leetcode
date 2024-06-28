@@ -17,7 +17,7 @@ mod count_triplets {
 
     // test that check each solution for compliance with i < j <= k?
 
-    mod with_naive_solution {
+    mod naive_solution {
         use super::*;
 
         #[test]
@@ -35,7 +35,7 @@ mod count_triplets {
         }
     }
 
-    mod with_optimized_solution {
+    mod optimized_solution {
         use super::*;
 
         #[test]

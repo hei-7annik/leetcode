@@ -2,7 +2,7 @@
 mod test {
     use leetcode::problem_1657::close_strings::{close_strings};
 
-    mod with_naive_solution {
+    mod naive_solution {
         use super::*;
 
         #[test]
@@ -21,7 +21,7 @@ mod test {
         }
     }
 
-    mod with_optimized_solution {
+    mod optimized_solution {
         // use super::*;
     }
 }
