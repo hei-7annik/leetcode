@@ -30,6 +30,11 @@ mod test {
             let numbers = Vec::from([1,2,4,3,9,27,108,81,144,540]);
             assert_eq!(largest_divisible_subset(numbers), [1,3,9,27,108,540]);
         }
+        #[test]
+        fn with_misleading_first_number() {
+            let numbers = Vec::from([3,4,16,8]);
+            assert_eq!(largest_divisible_subset(numbers), [4,8,16]);
+        }
     }
 
     mod optimized_solution {
@@ -59,6 +64,11 @@ mod test {
         fn with_odd_and_even_interleaved_numbers() {
             let numbers = Vec::from([1,2,4,3,9,27,108,81,144,540]);
             assert_eq!(largest_divisible_subset_optimized(numbers), [1,3,9,27,108,540]);
+        }
+        #[test]
+        fn with_misleading_first_number() {
+            let numbers = Vec::from([3,4,16,8]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [4,8,16]);
         }
     }
 }
