@@ -50,9 +50,11 @@ fn divisible_subset_optimized(numbers: &Vec<u32>, current_factor: u32, auto_comp
         else {
             let subset;
             if let Some(s) = auto_complete.get(&current_factor) {
+                // BRANCH MITIGATION
                 subset = s.clone();
             }
             else {
+                // BRANCHING
                 subset = divisible_subset_optimized(&filtered_numbers, factor, auto_complete);
             }
 
@@ -65,4 +67,39 @@ fn divisible_subset_optimized(numbers: &Vec<u32>, current_factor: u32, auto_comp
     result.append(&mut current_longest_subset);
 
     return result
+}
+
+pub fn lds(mut numbers: Vec<u32>) -> Vec<u32> {
+    numbers.sort();
+    let mut indices = std::vec![numbers.len(); numbers.len()];
+    let mut sizes = std::vec![1; numbers.len()];
+
+    let mut last_index = 0;
+
+    for index in 1..numbers.len() {
+        let current_number = numbers[index];
+
+        numbers[..index].iter().enumerate().for_each(|(i, &factor)| {
+            if current_number % factor == 0 {
+
+                if sizes[index] < sizes[i] + 1 {
+                    sizes[index] = sizes[i] + 1;
+                    indices[index] = i;
+                }
+
+                if sizes[index] > sizes[last_index] {
+                    last_index = index;
+                }
+            }
+        })
+    }
+    let mut subset = Vec::with_capacity(sizes[last_index]);
+
+    while let Some(&i) = indices.get(last_index) {
+        subset.push(numbers[last_index]);
+        last_index = i;
+    }
+    // build answer
+    subset.reverse();
+    subset
 }
