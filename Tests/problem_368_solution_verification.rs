@@ -37,43 +37,89 @@ mod test {
         }
     }
 
-    mod optimized_solution {
+    mod partially_optimized_solution {
+        use super::*;
+
+        #[test]
+        fn with_continuous_numbers() {
+            let numbers = Vec::from([1, 2, 3]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1, 2]);
+        }
+
+        #[test]
+        fn with_powers_of_two() {
+            let numbers = Vec::from([1, 2, 4, 8]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1, 2, 4, 8]);
+        }
+
+        #[test]
+        fn with_one_number() {
+            let numbers = Vec::from([265]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [265]);
+        }
+
+        #[test]
+        fn with_even_numbers() {
+            let numbers = Vec::from([1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1, 2, 4, 8, 16, 32, 64]);
+        }
+
+        #[test]
+        fn with_odd_and_even_interleaved_numbers() {
+            let numbers = Vec::from([1, 2, 4, 3, 9, 27, 108, 81, 144, 540]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1, 3, 9, 27, 108, 540]);
+        }
+
+        #[test]
+        fn with_only_one_number_not_in_the_subset() {
+            let numbers = Vec::from([4, 8, 10, 240]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [4, 8, 240]);
+        }
+
+        #[test]
+        fn with_misleading_first_number() {
+            let numbers = Vec::from([3, 4, 16, 8]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [4, 8, 16]);
+        }
+    }
+
+    mod fully_optimized_solution {
         use super::*;
 
         #[test]
         fn with_continuous_numbers() {
             let numbers = Vec::from([1,2,3]);
-            assert_eq!(lds(numbers), [1,2]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1,2]);
         }
         #[test]
         fn with_powers_of_two() {
             let numbers = Vec::from([1,2,4,8]);
-            assert_eq!(lds(numbers), [1,2,4,8]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1,2,4,8]);
         }
         #[test]
         fn with_one_number() {
             let numbers = Vec::from([265]);
-            assert_eq!(lds(numbers), [265]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [265]);
         }
         #[test]
         fn with_even_numbers() {
             let numbers = Vec::from([1,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,104,106,108,110,112,114]);
-            assert_eq!(lds(numbers), [1,2,4,8,16,32,64]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1,2,4,8,16,32,64]);
         }
         #[test]
         fn with_odd_and_even_interleaved_numbers() {
             let numbers = Vec::from([1,2,4,3,9,27,108,81,144,540]);
-            assert_eq!(lds(numbers), [1,3,9,27,108,540]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [1,3,9,27,108,540]);
         }
         #[test]
         fn with_only_one_number_not_in_the_subset() {
             let numbers = Vec::from([4,8,10,240]);
-            assert_eq!(lds(numbers), [4,8,240]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [4,8,240]);
         }
         #[test]
         fn with_misleading_first_number() {
             let numbers = Vec::from([3,4,16,8]);
-            assert_eq!(lds(numbers), [4,8,16]);
+            assert_eq!(largest_divisible_subset_optimized(numbers), [4,8,16]);
         }
 
         #[test]
