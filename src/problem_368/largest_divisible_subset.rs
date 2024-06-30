@@ -71,33 +71,31 @@ fn divisible_subset_optimized(numbers: &Vec<u32>, current_factor: u32, auto_comp
 
 pub fn lds(mut numbers: Vec<u32>) -> Vec<u32> {
     numbers.sort();
-    let mut indices = std::vec![numbers.len(); numbers.len()];
-    let mut sizes = std::vec![1; numbers.len()];
 
-    let mut last_index = 0;
+    let mut size_subset_including = std::vec![1; numbers.len()];
+    let mut i_subset_element_before = std::vec![numbers.len(); numbers.len()];
 
-    for index in 1..numbers.len() {
-        let current_number = numbers[index];
+    let mut i_last_subset_element = 0;
 
-        numbers[..index].iter().enumerate().for_each(|(i, &factor)| {
-            if current_number % factor == 0 {
-
-                if sizes[index] < sizes[i] + 1 {
-                    sizes[index] = sizes[i] + 1;
-                    indices[index] = i;
+    for current_i in 1..numbers.len() {
+        for i in 0..current_i {
+            if numbers[current_i] % numbers[i] == 0 {
+                if size_subset_including[current_i] < size_subset_including[i] + 1 {
+                    size_subset_including[current_i] = size_subset_including[i] + 1;
+                    i_subset_element_before[current_i] = i;
                 }
 
-                if sizes[index] > sizes[last_index] {
-                    last_index = index;
+                if size_subset_including[current_i] > size_subset_including[i_last_subset_element] {
+                    i_last_subset_element = current_i;
                 }
             }
-        })
+        }
     }
-    let mut subset = Vec::with_capacity(sizes[last_index]);
+    let mut subset = Vec::with_capacity(size_subset_including[i_last_subset_element]);
 
-    while let Some(&i) = indices.get(last_index) {
-        subset.push(numbers[last_index]);
-        last_index = i;
+    while let Some(&i) = i_subset_element_before.get(i_last_subset_element) {
+        subset.push(numbers[i_last_subset_element]);
+        i_last_subset_element = i;
     }
     // build answer
     subset.reverse();
