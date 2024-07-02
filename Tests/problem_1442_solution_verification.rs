@@ -22,14 +22,14 @@ mod count_triplets {
 
         #[test]
         fn in_random_input() {
-            let vector: Vec<u32> = verify_input(Vec::from([2,3,1,6,7]));
+            let vector: Vec<u32> = verify_input(vec![2,3,1,6,7]);
 
             assert_eq!(count_triplets_naive(&vector), 4);
         }
 
         #[test]
         fn in_same_number_input() {
-            let vector: Vec<u32> = verify_input(Vec::from([1,1,1,1,1]));
+            let vector: Vec<u32> = verify_input(vec![1,1,1,1,1]);
 
             assert_eq!(count_triplets_naive(&vector), 10);
         }
@@ -40,14 +40,14 @@ mod count_triplets {
 
         #[test]
         fn in_random_input() {
-            let vector: Vec<u32> = verify_input(Vec::from([2,3,1,6,7]));
+            let vector: Vec<u32> = verify_input(vec![2,3,1,6,7]);
 
             assert_eq!(count_triplets_optimized(&vector), 4);
         }
 
         #[test]
         fn in_same_number_input() {
-            let vector: Vec<u32> = verify_input(Vec::from([1,1,1,1,1]));
+            let vector: Vec<u32> = verify_input(vec![1,1,1,1,1]);
 
             assert_eq!(count_triplets_optimized(&vector), 10);
         }
