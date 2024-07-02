@@ -27,7 +27,7 @@ pub fn close_strings(word1: String, word2: String) -> bool {
         let features_word1 = get_char_set_and_char_distribution(word1);
         let features_word2 = get_char_set_and_char_distribution(word2);
 
-        let chars_subset_equal = features_word1.keys().any(|key| features_word2.contains_key(key));
+        let chars_subset_equal = features_word1.keys().all(|key| features_word2.contains_key(key));
         let mut chars_distribution_w1: Vec<u32> = features_word1.into_values().collect();
         chars_distribution_w1.sort();
 
