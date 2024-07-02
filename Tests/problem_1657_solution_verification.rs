@@ -22,8 +22,8 @@ mod test {
 
         #[test]
         fn with_word1_uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu_and_word2_rppprrpurrrrrurrrurprprprprpuprruur() {
-            assert!(close_strings(String::from("uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu"), 
-                                  String::from("rppprrpurrrrrurrrurprprprprpuprruur")))
+            assert_eq!(close_strings(String::from("uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu"),
+                                  String::from("rppprrpurrrrrurrrurprprprprpuprruur")), false)
         }
     }
 
