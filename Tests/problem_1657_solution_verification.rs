@@ -19,6 +19,12 @@ mod test {
         fn with_word1_cabbba_and_word2_abbccc() {
             assert!(close_strings(String::from("cabbba"), String::from("abbccc")))
         }
+
+        #[test]
+        fn with_word1_uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu_and_word2_rppprrpurrrrrurrrurprprprprpuprruur() {
+            assert!(close_strings(String::from("uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu"), 
+                                  String::from("rppprrpurrrrrurrrurprprprprpuprruur")))
+        }
     }
 
     mod optimized_solution {
