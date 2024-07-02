@@ -44,7 +44,7 @@ mod test {
 
         #[test]
         fn with_continuous_numbers() {
-            let numbers = Vec::vec![1,2,3];
+            let numbers = vec![1,2,3];
             assert_eq!(largest_divisible_subset_optimized(numbers), [1,2]);
         }
 
