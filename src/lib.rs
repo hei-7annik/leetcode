@@ -17,3 +17,7 @@ pub mod problem_368 {
 pub mod problem_739 {
     pub mod daily_temperatures;
 }
+
+pub mod problem_2181 {
+    pub mod merge_nodes;
+}
