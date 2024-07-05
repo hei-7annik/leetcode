@@ -1,15 +1,5 @@
 mod test {
-    use std::boxed::Box;
-    use leetcode::problem_2181::merge_nodes::{merge_nodes, ListNode};
-
-    fn list_from(values: &[i32]) -> Option<Box<ListNode>> {
-        let mut current= None;
-
-        for i in (1..values.len()).rev() {
-            current = Some(Box::new(ListNode{ val: values[i], next: current }));
-        }
-        current
-    }
+    use leetcode::problem_2181::merge_nodes::{merge_nodes, list_from};
 
     mod naive_solution {
         use super::*;
