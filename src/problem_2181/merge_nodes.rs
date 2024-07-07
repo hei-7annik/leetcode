@@ -25,7 +25,7 @@ pub fn list_from(values: &[i32]) -> Option<Box<ListNode>> {
   current
 }
 
-pub fn merge_nodes(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+pub fn merge_nodes_naive(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
   let mut list = Vec::new();
   let mut acc = 0;
 
@@ -40,4 +40,27 @@ pub fn merge_nodes(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     head = node.next;
   }
   list_from(&list[1..])
+}
+
+pub fn merge_nodes_optimized(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+  let mut new_head = Box::new(ListNode::new(0));
+  let mut merged_node = &mut new_head;
+
+  let mut current = head.unwrap();
+
+  while let Some(mut node) = current.next.take() {
+    merged_node.val += node.val;
+
+    let next;
+    if node.val == 0 && node.next != None {
+      merged_node = merged_node.next.insert(node);
+      next = merged_node.next.take();
+    }
+    else {
+      next = node.next.take();
+    }
+
+    current.next = next;
+  }
+  Some(new_head)
 }
