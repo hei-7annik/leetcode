@@ -21,3 +21,7 @@ pub mod problem_739 {
 pub mod problem_2181 {
     pub mod merge_nodes;
 }
+
+pub mod problem_1823 {
+    pub mod find_the_winner;
+}
