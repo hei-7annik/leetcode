@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod test {
+mod problem_1657 {
     use leetcode::problem_1657::close_strings::{close_strings};
 
     mod naive_solution {

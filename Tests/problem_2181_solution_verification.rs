@@ -1,4 +1,4 @@
-mod test {
+mod problem_2181 {
     use leetcode::problem_2181::merge_nodes::{merge_nodes_naive, merge_nodes_optimized, list_from};
 
     mod naive_solution {

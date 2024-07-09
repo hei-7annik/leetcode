@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod count_triplets {
+mod problem_1442 {
     use leetcode::problem_1442::count_triplets::{
     count_triplets_optimized,
     count_triplets_naive };
