@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod test {
+mod problem_2385 {
     use std::rc::Rc;
     use std::cell::RefCell;
     use leetcode::problem_2385::calculate_infection_time::{calculate_infection_time_naive, TreeNode};

@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod test {
+mod problem_739 {
     use leetcode::problem_739::daily_temperatures::{daily_temperatures, daily_temperatures_optimized};
     mod unoptimized_solution {
         use super::*;
