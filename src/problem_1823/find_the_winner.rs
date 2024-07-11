@@ -31,10 +31,8 @@ pub fn find_the_winner_optimized(n: i32, k: i32) -> i32 {
     let mut friends: VecDeque<i32> = (1..=n).collect();
 
     while friends.len() > 1 {
-        for _i in 0..k - 1 {
-            let friend = friends.pop_front().unwrap();
-            friends.push_back(friend);
-        }
+        let steps = (k - 1) as usize % friends.len();
+        friends.rotate_left(steps);
 
         friends.pop_front();
     }
