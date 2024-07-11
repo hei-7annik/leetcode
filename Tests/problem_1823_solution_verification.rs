@@ -5,7 +5,7 @@ mod problem_1823 {
         use super::*;
         #[test]
         fn with_5_friends_and_2_as_integer() {
-            assert_eq!(find_the_winner(5,3), 3)
+            assert_eq!(find_the_winner(5,2), 3)
         }
 
         #[test]
