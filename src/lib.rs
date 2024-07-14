@@ -25,3 +25,7 @@ pub mod problem_2181 {
 pub mod problem_1823 {
     pub mod find_the_winner;
 }
+
+pub mod problem_726 {
+    pub mod count_of_atoms;
+}
