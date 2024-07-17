@@ -1,3 +1,7 @@
+//! Crate level Documentation
+//!
+//!
+//!
 pub mod problem_1442 {
     pub mod count_triplets;
 }
@@ -28,4 +32,8 @@ pub mod problem_1823 {
 
 pub mod problem_726 {
     pub mod count_of_atoms;
+}
+
+pub mod problem_7 {
+    pub mod reverse;
 }
