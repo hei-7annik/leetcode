@@ -5,7 +5,7 @@ mod problem_726 {
         use super::*;
 
         #[test]
-        fn with_H2O() {
+        fn with_simple_formula() {
             let formula = "H2O".to_string();
             assert_eq!(count_of_atoms(formula), "H2O")
         }
