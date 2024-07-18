@@ -2,7 +2,7 @@
 mod problem_1657 {
     use leetcode::problem_1657::close_strings::{close_strings};
 
-    mod naive_solution {
+    mod solution {
         use super::*;
 
         #[test]
@@ -25,9 +25,5 @@ mod problem_1657 {
             assert_eq!(close_strings(String::from("uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu"),
                                   String::from("rppprrpurrrrrurrrurprprprprpuprruur")), false)
         }
-    }
-
-    mod optimized_solution {
-        // use super::*;
     }
 }
