@@ -1,7 +1,16 @@
 /// Construct reversed_number from number - digit by digit
 ///
-/// Edge-Cases: min/max i32 values, number that, reversed are lager/smaller then max/min i32...
+/// # input: i32 from -2.147.483.648 up to 2.147.483.647
 ///
+/// # edge-cases:
+///     - No Change             0                 -> 0
+///     - leading zero's        1000              -> 1
+///     - Result > i32::MAX     8.463.847.421     -> 0
+///     - Result < i32::MIN     -2.147.483.647    -> 0
+///
+/// # Example  reverse(16234) = 43261
+///
+
 pub fn reverse(x: i32) -> i32 {
     let mut number = x;
 
