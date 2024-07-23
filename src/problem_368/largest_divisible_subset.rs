@@ -1,11 +1,5 @@
 use std::collections::BTreeMap;
 
-// each factor f starts a subset S:
-// each number N divisible by f_i creates a variant of that subset
-// containing N as factor f_(i+1) where both subsets are equal for
-// the first i elements
-//
-// the largest subset is obtained by BRANCHING for each N
 pub fn largest_divisible_subset(mut numbers: Vec<u32>) -> Vec<u32> {
     numbers.sort();
 
@@ -69,6 +63,28 @@ fn divisible_subset_optimized(numbers: &Vec<u32>, current_factor: u32, auto_comp
     return result
 }
 
+/// group elements from the input set `s` into equivalence classes `c` according to
+/// binary relation `R := aRb if a % b == 0 || b % a == 0` where two integers `a,b`
+/// are related if one divides the other without a remainder.
+///
+/// # Example
+/// ```rust
+/// let input_set = vec![1,2,4,3,9,27,108,81,144,540];
+/// assert_eq!(largest_divisible_subset(input_set), [1,3,9,27,108,540])
+/// ```
+///
+/// # Cases
+/// 1. Equivalence classes are empty because the input set is empty
+/// 2. Equivalence classes are all size 1
+/// 3. Equivalence classes are differently sized
+///
+/// # Method
+/// 1. Iterate over the values `v` in the set
+/// 2. Check if `v` and any of the previous values `prev_v` are related
+/// 3. Find the largest equivalence class `c` of any `prev_v`
+/// 4. Include `v` in `c` by saving `c.size + 1` and a reference to `prev_v`
+/// 5. Update reference to current largest equivalence class to `v` if necessary
+///
 pub fn lds(mut numbers: Vec<u32>) -> Vec<u32> {
     numbers.sort();
 
@@ -97,7 +113,6 @@ pub fn lds(mut numbers: Vec<u32>) -> Vec<u32> {
         subset.push(numbers[i_last_subset_element]);
         i_last_subset_element = i;
     }
-    // build answer
     subset.reverse();
     subset
 }
