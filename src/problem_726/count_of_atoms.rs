@@ -1,6 +1,24 @@
 use std::collections::BTreeMap;
+/// Analysing chemical formulas by expanding and sorting.
 ///
-/// To-Do Add documentation to each function
+/// # Example
+/// ```rust
+/// assert_eq!(count_of_atoms("(Mg6(H20))4"), "H8Mg24O4")
+/// ```
+///
+/// # Cases
+/// 1. H
+/// 2. Fe
+/// 2. Fe128
+/// 3. H8(Fe2)4
+///
+/// # Method
+/// 1. Parse the formula back to front
+/// 2. Push numbers in front of braces to a stack
+/// 3. Determine if the chemical element has a one or two letter symbol `s`
+/// 4. Determine the length of the number `n`
+/// 5. Multiply `n` with the number on top of the stack and add that to the
+/// entry for `s`
 ///
 pub fn count_of_atoms(formula: String) -> String {
     let mut factors = vec![1];
