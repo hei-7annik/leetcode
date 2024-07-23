@@ -6,22 +6,22 @@ mod problem_1657 {
         use super::*;
 
         #[test]
-        fn with_word1_abc_and_word2_bca() {
+        fn with_words_having_characters_in_different_order() {
             assert!(close_strings(String::from("abc"), String::from("bca")))
         }
 
         #[test]
-        fn with_word1_a_and_word2_aa() {
+        fn with_words_containing_a_single_characters() {
             assert!(close_strings(String::from("a"), String::from("a")))
         }
 
         #[test]
-        fn with_word1_cabbba_and_word2_abbccc() {
+        fn with_words_having_a_different_character_distribution() {
             assert!(close_strings(String::from("cabbba"), String::from("abbccc")))
         }
 
         #[test]
-        fn with_word1_uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu_and_word2_rppprrpurrrrrurrrurprprprprpuprruur() {
+        fn with_words_having_distinct_character_sets() {
             assert_eq!(close_strings(String::from("uiuiiuuiuuuuuuwiwuuwiiiiuuuuwwiwuuu"),
                                   String::from("rppprrpurrrrrurrrurprprprprpuprruur")), false)
         }

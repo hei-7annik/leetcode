@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod problem_726 {
-    use leetcode::problem_726::count_of_atoms::{count_of_atoms/*, count_of_atoms_optimized*/};
+    use leetcode::problem_726::count_of_atoms::{count_of_atoms};
     mod solution {
         use super::*;
 
