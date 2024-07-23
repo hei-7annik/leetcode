@@ -20,9 +20,35 @@ impl TreeNode {
     }
 }
 
-
-
-pub fn calculate_infection_time_naive(root: Option<Rc<RefCell<TreeNode>>>, start: u32) -> u32 {
+/// Simulate a spreading infection by searching for the longest
+/// path in an undirected graph.
+///
+/// # Example
+///
+///             (0)
+///           //   \\
+///         (1)     (2)
+///       //       /   \\
+///     (3)      (4)   (5)
+///                 \
+///                  (6)
+///
+/// ```rust
+/// debug_assert_eq!(calculate_infection_time(root, 5), 4);
+/// ```
+///
+/// # Cases
+/// 1. Longest path from the infected node goes up and then down
+/// 2. Longest path from the infected node goes down
+///
+/// # Method
+/// 1. Recursively traverse the tree depth first
+/// 2. Increase distance `l` to leaf by 1
+/// 3. Increase distance `i` to infected node if it is part of left/right subtree
+/// 4. Set path length `p = l + i`
+/// 5. Compare `p` to `max_p` and update `max_p` if necessary
+///
+pub fn calculate_infection_time(root: Option<Rc<RefCell<TreeNode>>>, start: u32) -> u32 {
     depth_mapping(root, start).max_path_len
 }
 
@@ -32,17 +58,6 @@ pub struct Results {
     path_to_infected_len: Option<u32>,
 }
 
-/* Options
-1.  Infection starts on one and travels to the other side of the tree
-    longest path:   infected node -> ancestor -> ... -> root -> ... -> child
-
-2.  Infection starts on one and travels to the other side, which gets fully infected before completing
-    the side it started on.
-    longest path:   infected node -> ancestor -> ... -> ancestor -> .. -> child
-
-3.  Infection takes longer travels to one of the subtrees of its node then through the rest of the tree
-    longest path:   infected node -> child -> ... -> child
-*/
 pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: u32) -> Results {
     let mut result = Results { max_path_len: 0, path_to_infected_len: None };
 
@@ -55,19 +70,18 @@ pub fn depth_mapping(root: Option<Rc<RefCell<TreeNode>>>, target: u32) -> Result
         if node.borrow().val == target {
             result.path_to_infected_len = Some(0);
         }
-        // Option 1 & 2
+        // Path length calculation for Case 1
         else if let Some(length) = left_subtree.path_to_infected_len {
             result.path_to_infected_len = Some(length + 1);
             result.max_path_len = max(result.path_to_infected_len.unwrap() + right_subtree.max_path_len,
                                       result.max_path_len);
         }
-        // Option 1 & 2
         else if let Some(length) = right_subtree.path_to_infected_len {
             result.path_to_infected_len = Some(length + 1);
             result.max_path_len = max(result.path_to_infected_len.unwrap() + left_subtree.max_path_len,
                                       result.max_path_len);
         }
-        // Option 3
+        // Case 2
         else {
             result.max_path_len += 1
         }
