@@ -13,6 +13,25 @@ pub fn daily_temperatures(temperatures: Vec<u32>) -> Vec<u32> {
     results
 }
 
+/// Determines for each day the duration in day's until the first with a higher temperature value
+///
+/// # Example
+/// ```rust
+/// assert_eq!(daily_temperatures([24,25,26,22,29,23,27,24]), "[1,1,4,2,1,1,0,0]")
+/// ```
+///
+/// # Cases
+/// 1. No day with a higher temperature value comes after
+/// 2. A day with a higher temperature comes after
+///
+/// # Method
+/// 1. Compare temperature of today to temperature of the day on top of the stack
+/// 2. If it is colder, push today onto the stack
+/// 3. If it is hotter, pop day from the stack
+/// 4. Calculate duration in between day and today
+/// 5. Repeat from 1 until today gets pushed to the stack
+/// 6. Proceed with the next day
+///
 pub fn daily_temperatures_optimized(mut temperatures: Vec<u32>) -> Vec<u32> {
     let mut stack = Vec::new();
 
