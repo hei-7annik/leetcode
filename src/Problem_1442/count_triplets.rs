@@ -1,4 +1,4 @@
-pub fn count_triplets_naive(array: &[u32]) -> u32 {
+pub fn count_triplets(array: &[u32]) -> u32 {
     let mut tuples: Vec<(u32, u32, u32)> = Vec::new();
 
     let length = array.len() - 1;
@@ -23,6 +23,9 @@ pub fn count_triplets_naive(array: &[u32]) -> u32 {
     tuples.len() as u32
 }
 
+///
+/// To-Do Add documentation to each function
+///
 pub fn count_triplets_optimized(array: &[u32]) -> u32 {
     let mut count = 0;
 

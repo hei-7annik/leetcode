@@ -2,7 +2,7 @@
 mod problem_1442 {
     use leetcode::problem_1442::count_triplets::{
     count_triplets_optimized,
-    count_triplets_naive };
+    count_triplets};
 
     // input constraints
     static MAX_VECTOR_SIZE: usize = 300;
@@ -24,14 +24,14 @@ mod problem_1442 {
         fn in_random_input() {
             let vector: Vec<u32> = verify_input(vec![2,3,1,6,7]);
 
-            assert_eq!(count_triplets_naive(&vector), 4);
+            assert_eq!(count_triplets(&vector), 4);
         }
 
         #[test]
         fn in_same_number_input() {
             let vector: Vec<u32> = verify_input(vec![1,1,1,1,1]);
 
-            assert_eq!(count_triplets_naive(&vector), 10);
+            assert_eq!(count_triplets(&vector), 10);
         }
     }
 
