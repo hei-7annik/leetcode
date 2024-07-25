@@ -9,16 +9,25 @@ fn get_char_set_and_char_distribution(word: String) -> BTreeMap<char, u32> {
     characters
 }
 
-// words with the same set of characters and the same distribution
-//
-// (char x_1: 6 times, char x_2: 3 times... )
-//
-// can be transformed into each other using operation 1&2:
-//
-// Operation 1 allows for changing where characters occur
-// Operation 2 allows for changing how often characters occur
-// if and only if there is another (kind of) character to swap
-
+/// Checks if one string can be converted into another by repeatedly applying either
+/// (**Operation 1**) swapping two characters or (**Operation 2**) exchanging all occurrences of one
+/// kind of character with that of another.
+///
+/// # Example
+/// ```rust
+/// assert_eq!(close_strings("cabbba".to_string(), "abbccc".to_string()),true)
+/// ```
+///
+/// # Cases
+/// 1. Word `1` & `2` are the same
+/// 2. Word `1` & `2` have the same set of characters and the same distribution
+/// 3. Word `1` & `2` dont have the same set of character or distribution
+///
+/// # Method
+/// 1. Get character set and distribution `"cabba"` -> `{(a: 2),(b: 3), (c: 1)}`
+/// 2. Use **Operation 2** to change how often a character occurs to align their character distribution
+/// 3. Use **Operation 1** to change the characters position to align their order
+///
 pub fn close_strings(word1: String, word2: String) -> bool {
     if word1.len() != word2.len() {
         false
