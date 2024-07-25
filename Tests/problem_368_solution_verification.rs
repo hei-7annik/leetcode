@@ -1,6 +1,10 @@
 #[cfg(test)]
 mod problem_368 {
-    use leetcode::problem_368::largest_divisible_subset::{largest_divisible_subset, largest_divisible_subset_optimized, lds};
+    use leetcode::problem_368::largest_divisible_subset::{
+        largest_divisible_subset,
+        largest_divisible_subset_optimized,
+        lds
+    };
 
     mod unoptimized_solution {
         use super::*;

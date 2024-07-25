@@ -4,7 +4,7 @@ mod problem_7 {
     mod naive_solution {
         use super::*;
         #[test]
-        fn with_basic_number() {
+        fn with_positive_number() {
             let number = 123;
             assert_eq!(reverse(number), 321);
         }
@@ -16,7 +16,7 @@ mod problem_7 {
         }
 
         #[test]
-        fn with_last_digit_is_zero() {
+        fn with_trailing_zeros() {
             let number = 120;
             assert_eq!(reverse(number), 21);
         }
@@ -28,7 +28,7 @@ mod problem_7 {
         }
 
         #[test]
-        fn with_only_one_digit() {
+        fn with_single_digit() {
             let number = 0;
             assert_eq!(reverse(number), 0);
         }

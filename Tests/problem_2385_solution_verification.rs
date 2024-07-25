@@ -2,7 +2,10 @@
 mod problem_2385 {
     use std::rc::Rc;
     use std::cell::RefCell;
-    use leetcode::problem_2385::calculate_infection_time::{calculate_infection_time, TreeNode};
+    use leetcode::problem_2385::calculate_infection_time::{
+        calculate_infection_time,
+        TreeNode
+    };
 
     fn assemble_tree(values: &[u32], position: usize) -> Option<Rc<RefCell<TreeNode>>> {
         if let Some(&val) = values.get(position) {
