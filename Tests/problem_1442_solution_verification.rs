@@ -16,7 +16,7 @@ mod problem_1442 {
         input
     }
 
-    mod naive_solution {
+    mod solution {
         use super::*;
 
         #[test]

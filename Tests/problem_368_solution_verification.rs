@@ -6,7 +6,7 @@ mod problem_368 {
         lds
     };
 
-    mod unoptimized_solution {
+    mod solution {
         use super::*;
 
         #[test]

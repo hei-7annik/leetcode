@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod problem_7 {
     use leetcode::problem_7::reverse::{reverse};
-    mod naive_solution {
+    mod solution {
         use super::*;
         #[test]
         fn with_positive_number() {

@@ -4,7 +4,7 @@ mod problem_739 {
         daily_temperatures,
         daily_temperatures_optimized
     };
-    mod unoptimized_solution {
+    mod solution {
         use super::*;
 
         #[test]
@@ -27,7 +27,7 @@ mod problem_739 {
 
     }
 
-    mod partially_optimized_solution {
+    mod optimized_solution {
         use super::*;
 
         #[test]

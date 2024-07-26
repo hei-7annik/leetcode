@@ -4,7 +4,7 @@ mod problem_1823 {
         find_the_winner_optimized
     };
 
-    mod naive_solution {
+    mod solution {
         use super::*;
         #[test]
         fn with_small_group_of_friends() {

@@ -5,7 +5,7 @@ mod problem_2181 {
         linked_list_from
     };
 
-    mod naive_solution {
+    mod solution {
         use super::*;
         #[test]
         fn with_list_containing_two_sections() {

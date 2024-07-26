@@ -21,7 +21,7 @@ mod problem_2385 {
         None
     }
 
-    mod naive_solution {
+    mod solution {
         use super::*;
         #[test]
         fn where_longest_path_includes_root() {
