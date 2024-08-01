@@ -5,7 +5,7 @@ use std::cmp::Ordering::{Greater, Equal, Less};
 ///
 /// # Example:
 /// ```rust
-/// assert_eq!(candy(vec![]), 0);
+/// assert_eq!(candy(vec![1,0,2,3,4]), 12);
 /// ```
 ///
 /// # Cases:
@@ -23,7 +23,8 @@ use std::cmp::Ordering::{Greater, Equal, Less};
 /// 1. Translate each subsequence `s` of increasing/decreasing numbers into a continuous one
 ///     starting at `1` and ending at `s.length`.
 /// 2. Translate each subsequence of equal numbers to `1`'s excluding the first number.
-/// 3. Adjust for
+/// 3. For an increasing sequences `s_i` followed by a decreasing sequences `s_d` that is as long or
+///     longer, make sure `s_i`'s last element is still higher.
 /// 3. Sum values
 ///
 
