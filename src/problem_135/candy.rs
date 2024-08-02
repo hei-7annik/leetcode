@@ -39,7 +39,7 @@ pub fn candy(mut ratings: Vec<i32>) -> i32 {
 
     for i in 0..ratings.len() - 1 {
         distributed_candies += candies + 1;
-
+        
         threshold.is_some_and(|threshold| candies + 1 >= threshold)
             .then(||{ distributed_candies += 1});
 
