@@ -41,3 +41,7 @@ pub mod problem_7 {
 pub mod problem_135 {
     pub mod candy;
 }
+
+pub mod problem_1105 {
+    pub mod min_height_shelves;
+}
