@@ -30,6 +30,7 @@ pub fn count_of_atoms(formula: String) -> String {
     formula.chars().rev().enumerate().for_each(|(index, character)| {
         let i = formula.len() - 1 - index;
         match character {
+            #[allow(non_snake_case)]
             C if C.is_ascii_uppercase() => {
                 let periodic_table_element_symbol = &formula[i..=i + symbol_len];
                 let count_string = &formula[i + symbol_len + 1..=i + symbol_len + factor_len];
