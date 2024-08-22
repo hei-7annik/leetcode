@@ -1,5 +1,6 @@
 /// Explanation
-/// Put books on a bookshelf with minimal height through optimal configuration of books on each shelf
+/// Put books on a bookshelf with minimal height through choosing optimal selection of which books go on
+/// each shelf
 ///
 /// # Example
 /// ```rust
@@ -24,28 +25,28 @@
 ///
 
 pub fn min_height_shelves(books: Vec<Vec<i32>>, shelf_width: i32) -> i32 {
-    let mut total_shelf_height = Vec::from([0]);
+    let mut bookshelf_heights = Vec::from([0]);
 
     for i in 0..books.len() {
-        let mut shelf_height = 0;
-        let mut book_stack_width = 0;
+        let mut additional_shelf_height = 0;
+        let mut sum_book_widths = 0;
 
-        let height = total_shelf_height.iter()
+        let height = bookshelf_heights.iter()
             .zip(&books[..=i])
             .rev()
             .take_while(|(_, &ref book)| {
                 // going back, select as many books as will fit on one shelf
-                book_stack_width += book[0];
-                book_stack_width <= shelf_width
+                sum_book_widths += book[0];
+                sum_book_widths <= shelf_width
             })
             .map( |(bookcase_height, book)| {
-                shelf_height = i32::max(shelf_height, book[1]);
+                additional_shelf_height = i32::max(additional_shelf_height, book[1]);
 
-                bookcase_height + shelf_height
+                bookcase_height + additional_shelf_height
             }).min();
 
-        total_shelf_height.push(height.unwrap());
+        bookshelf_heights.push(height.unwrap());
     }
 
-    total_shelf_height.pop().unwrap()
+    bookshelf_heights.pop().unwrap()
 }
